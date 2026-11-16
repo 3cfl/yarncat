@@ -2,12 +2,17 @@
 import math
 import os
 import random
-import select
 import shutil
 import sys
-import termios
 import time
-import tty
+
+WINDOWS = os.name == "nt"
+if WINDOWS:
+    import msvcrt
+else:
+    import select
+    import termios
+    import tty
 
 
 def sprite(block):
@@ -373,13 +378,51 @@ class Scene:
             cv.put(x, y, "~" if (x // 2) % 2 else "-", C_THREAD)
 
 
+def setup_windows_console():
+    try:
+        import ctypes
+        k = ctypes.windll.kernel32
+        h = k.GetStdHandle(-11)
+        mode = ctypes.c_uint32()
+        if k.GetConsoleMode(h, ctypes.byref(mode)):
+            k.SetConsoleMode(h, mode.value | 0x0004)
+    except Exception:
+        pass
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+
+def wait_for_key(fd, timeout):
+    if WINDOWS:
+        end = time.time() + timeout
+        while True:
+            if msvcrt.kbhit():
+                while msvcrt.kbhit():
+                    msvcrt.getwch()
+                return True
+            if time.time() >= end:
+                return False
+            time.sleep(0.01)
+    r, _, _ = select.select([fd], [], [], timeout)
+    if r:
+        os.read(fd, 64)
+        return True
+    return False
+
+
 def run(duration=None):
     fd = sys.stdin.fileno()
     is_tty = os.isatty(fd)
-    old = termios.tcgetattr(fd) if is_tty else None
+    old = None
+    if WINDOWS:
+        setup_windows_console()
+    elif is_tty:
+        old = termios.tcgetattr(fd)
     out = sys.stdout
     try:
-        if is_tty:
+        if old:
             tty.setcbreak(fd)
         out.write("\x1b[?1049h\x1b[?25l\x1b[2J")
         out.flush()
@@ -398,9 +441,7 @@ def run(duration=None):
             if duration and t > duration:
                 break
             if is_tty:
-                r, _, _ = select.select([fd], [], [], 1 / 24)
-                if r:
-                    os.read(fd, 64)
+                if wait_for_key(fd, 1 / 24):
                     break
             else:
                 time.sleep(1 / 24)

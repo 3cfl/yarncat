@@ -17,4 +17,11 @@ curl -Lo ~/.local/bin/meow https://raw.githubusercontent.com/3cfl/yarncat/main/m
 chmod +x ~/.local/bin/meow
 ```
 
+on windows (also needs python 3):
+
+```
+curl -o meow.py https://raw.githubusercontent.com/3cfl/yarncat/main/meow
+py meow.py
+```
+
 then type `meow`. press any key when you're done watching.
