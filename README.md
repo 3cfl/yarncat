@@ -2,6 +2,8 @@
 
 a little cat that rolls around in your terminal
 
+![yarncat](screenshot.png)
+
 ## setup
 
 on arch:
