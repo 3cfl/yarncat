@@ -2,7 +2,7 @@
 
 a little cat that rolls around in your terminal
 
-![yarncat](screenshot.png)
+![yarncat](yarncat.gif)
 
 ## setup
 
