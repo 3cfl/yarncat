@@ -16,15 +16,15 @@ cd yarncat/arch && makepkg -si
 anywhere else (you just need python 3):
 
 ```sh
-curl -Lo ~/.local/bin/meow https://raw.githubusercontent.com/3cfl/yarncat/main/meow
-chmod +x ~/.local/bin/meow
+curl -Lo ~/.local/bin/yarncat https://raw.githubusercontent.com/3cfl/yarncat/main/yarncat
+chmod +x ~/.local/bin/yarncat
 ```
 
 on windows (also needs python 3):
 
 ```
-curl -o meow.py https://raw.githubusercontent.com/3cfl/yarncat/main/meow
-py meow.py
+curl -o yarncat.py https://raw.githubusercontent.com/3cfl/yarncat/main/yarncat
+py yarncat.py
 ```
 
-run `meow` (or `py meow.py` on windows). press any key when you're done watching.
+run `yarncat` (or `py yarncat.py` on windows). press any key when you're done watching.
