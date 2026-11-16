@@ -24,4 +24,4 @@ curl -o meow.py https://raw.githubusercontent.com/3cfl/yarncat/main/meow
 py meow.py
 ```
 
-then type `meow`. press any key when you're done watching.
+run `meow` (or `py meow.py` on windows). press any key when you're done watching.
