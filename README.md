@@ -9,7 +9,8 @@ a little cat that rolls around in your terminal
 on arch:
 
 ```sh
-yay -S yarncat
+git clone https://github.com/3cfl/yarncat
+cd yarncat/arch && makepkg -si
 ```
 
 anywhere else (you just need python 3):

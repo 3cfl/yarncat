@@ -1,0 +1,18 @@
+pkgname=yarncat
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="a little cat that rolls around in your terminal"
+arch=('any')
+url="https://github.com/3cfl/yarncat"
+license=('MIT')
+depends=('python')
+conflicts=('meow')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('380a7bc29b552fb36567861289691ba73923bd7a4504977181412ad81f723bd1')
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 meow "$pkgdir/usr/bin/meow"
+  ln -s meow "$pkgdir/usr/bin/yarncat"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
